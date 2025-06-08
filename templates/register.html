@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FYJC Admission Registration</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script>
+    function validateForm() {
+      const name = document.forms["fyjcForm"]["name"].value.trim();
+      const email = document.forms["fyjcForm"]["email"].value.trim();
+      const school = document.forms["fyjcForm"]["school"].value.trim();
+      if (!name || !email || !school) {
+        alert("All fields are mandatory!");
+        return false;
+      }
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!emailPattern.test(email)) {
+        alert("Enter a valid email address.");
+        return false;
+      }
+      if (grecaptcha.getResponse() === "") {
+        alert("Please verify you are not a robot.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f7f8; padding: 20px; }
+    form { background:#fff; padding:20px; border-radius:8px; max-width:400px; margin:auto; }
+    input { width: 100%; padding: 10px; margin:10px 0; }
+    button { background:#007BFF; color:#fff; border:none; padding: 10px 15px; border-radius:5px; cursor:pointer; }
+    button:hover { background:#0056b3; }
+  </style>
+</head>
+<body>
+  <h2>FYJC Admission Registration</h2>
+  <form name="fyjcForm" method="POST" action="/submit" onsubmit="return validateForm()">
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="school">School Name:</label>
+    <input type="text" id="school" name="school" required />
+
+    <div class="g-recaptcha" data-sitekey="6LeJnlkrAAAAAIYzUPM7bQkSa-PkrAZjID8JR9W2"></div>
+
+    <button type="submit">Register</button>
+  </form>
+</body>
+</html>

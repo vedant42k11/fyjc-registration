@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Verify Registration</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f7f8; padding: 20px; }
+    form { background:#fff; padding:20px; border-radius:8px; max-width:400px; margin:auto; }
+    input { width: 100%; padding: 10px; margin:10px 0; }
+    button { background:#28a745; color:#fff; border:none; padding: 10px 15px; border-radius:5px; cursor:pointer; }
+    button:hover { background:#1e7e34; }
+  </style>
+</head>
+<body>
+  <h2>Enter Your Verification Code</h2>
+  <form method="POST" action="/verify">
+    <input type="hidden" name="email" value="{{ email }}" />
+    <label for="code">Verification Code:</label>
+    <input type="text" id="code" name="code" placeholder="Enter code sent to email" required />
+    <button type="submit">Verify</button>
+  </form>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for msg in messages %}
+          <li style="color:red;">{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</body>
+</html>
